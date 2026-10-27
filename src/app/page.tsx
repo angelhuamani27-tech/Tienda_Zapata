@@ -1,10 +1,14 @@
+'use client'
+
 import Link from 'next/link'
 import SiteHeader from '../components/SiteHeader'
 import ProductImage from '../components/products/ProductImage'
-import { products } from '../data/products'
+import AddToCartButton from '../components/cart/AddToCartButton'
+import { useCatalogue } from '../components/catalogue/CatalogueProvider'
 import { generalWhatsappHref, whatsappHref } from '../lib/whatsapp/link'
 
 export default function Home() {
+  const { products } = useCatalogue()
   const hasProducts = products.length > 0
 
   return <main>
@@ -14,9 +18,9 @@ export default function Home() {
       <h1 id="page-title">Tu próximo par está aquí.</h1>
       <div className="intro-side">
         <p>{hasProducts
-          ? 'Treinta modelos para recorrer sin apuro. Elige el que más te guste y abre una conversación directa por WhatsApp.'
-          : 'Estamos preparando el catálogo con fotos reales. Aquí aparecerán los modelos para que puedas elegir y consultar por WhatsApp.'}</p>
-        {hasProducts && <a className="button intro-button" href="#catalogo">Ver los 30 modelos <span aria-hidden="true">↓</span></a>}
+          ? 'Explora los modelos, agrega tus favoritos al carrito y envía tu pedido por WhatsApp cuando estés listo.'
+          : 'Tu catálogo está vacío en este navegador. Agrega un producto para empezar o consulta por WhatsApp.'}</p>
+        {hasProducts && <a className="button intro-button" href="#catalogo">Ver modelos <span aria-hidden="true">↓</span></a>}
       </div>
     </section>
 
@@ -36,14 +40,17 @@ export default function Home() {
             <strong>S/ {product.price.toFixed(2)}</strong>
           </div>
           <p className="product-description">{product.description}</p>
-          <a className="order-link" href={whatsappHref(product.name, product.id)} target="_blank" rel="noopener noreferrer" aria-label={`Pedir ${product.name} por WhatsApp`}>
-            Pedir por WhatsApp <span aria-hidden="true">↗</span>
-          </a>
+          <div className="product-actions">
+            <AddToCartButton product={product} compact />
+            <a className="order-link" href={whatsappHref(product.name, product.id)} target="_blank" rel="noopener noreferrer" aria-label={`Pedir ${product.name} por WhatsApp`}>
+              Pedir este modelo <span aria-hidden="true">↗</span>
+            </a>
+          </div>
         </article>)}
       </div> : <div className="empty-state" role="status">
         <div>
-          <h3>El catálogo está en preparación.</h3>
-          <p>Pronto verás aquí las fotos y los datos reales de cada producto.</p>
+          <h3>Tu catálogo está vacío.</h3>
+          <p>Puedes agregar un producto desde «Gestionar» o consultar por WhatsApp.</p>
         </div>
         <a className="button" href={generalWhatsappHref()} target="_blank" rel="noopener noreferrer">
           Consultar por WhatsApp <span aria-hidden="true">↗</span>
@@ -53,8 +60,8 @@ export default function Home() {
 
     <section className="how-to" id="como-pedir" aria-labelledby="how-title">
       <div className="shell how-inner">
-        <h2 id="how-title">Elige un par. Escríbenos.</h2>
-        <p>Cada modelo tiene un botón «Pedir por WhatsApp». Se abrirá una conversación con el modelo identificado en el mensaje. Tú decides si lo envías.</p>
+        <h2 id="how-title">Elige. Revisa. Escribe.</h2>
+        <p>Agrega los modelos al carrito y toca «Pedir por WhatsApp». Se abrirá un mensaje con el resumen; tú decides si lo envías. No hay pagos en la web.</p>
       </div>
     </section>
 

@@ -3,6 +3,9 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import SiteHeader from '../../../components/SiteHeader'
 import ProductImage from '../../../components/products/ProductImage'
+import AddToCartButton from '../../../components/cart/AddToCartButton'
+import LocalProductDetail from '../../../components/catalogue/LocalProductDetail'
+import ProductAvailability from '../../../components/catalogue/ProductAvailability'
 import { getProduct, products } from '../../../data/products'
 import { siteUrl } from '../../../lib/site-url'
 import { whatsappHref } from '../../../lib/whatsapp/link'
@@ -16,7 +19,9 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params
   const product = getProduct(id)
-  if (!product) return { title: 'Producto no disponible' }
+  if (!product) return id.startsWith('personal-')
+    ? { title: 'Producto del navegador | Catálogo de calzado', robots: { index: false, follow: false } }
+    : { title: 'Producto no disponible' }
 
   return {
     title: `${product.name} | Catálogo de calzado`,
@@ -31,10 +36,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProductPage({ params }: Props) {
   const { id } = await params
+  if (id.startsWith('personal-')) return <LocalProductDetail id={id} />
   const product = getProduct(id)
   if (!product) notFound()
 
-  return <main>
+  return <ProductAvailability id={id}><main>
     <SiteHeader />
     <article className="detail shell">
       <div className="detail-photo"><ProductImage src={product.image} name={product.name} isReference={product.isReference} loading="eager" sizes="(max-width: 720px) 100vw, 60vw" /></div>
@@ -45,11 +51,12 @@ export default async function ProductPage({ params }: Props) {
         {product.material && <p className="detail-fact"><strong>Material</strong><span>{product.material}</span></p>}
         {product.sizes?.length ? <p className="detail-fact"><strong>Tallas</strong><span>{product.sizes.join(', ')}</span></p> : null}
         <p className="detail-price">S/ {product.price.toFixed(2)}</p>
+        <AddToCartButton product={product} />
         <a className="button detail-button" href={whatsappHref(product.name, product.id)} target="_blank" rel="noopener noreferrer">
-          Pedir por WhatsApp <span aria-hidden="true">↗</span>
+          Pedir este modelo por WhatsApp <span aria-hidden="true">↗</span>
         </a>
         <p className="detail-note">WhatsApp abrirá un mensaje preparado. El envío lo haces tú.</p>
       </div>
     </article>
-  </main>
+  </main></ProductAvailability>
 }
