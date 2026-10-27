@@ -4,6 +4,7 @@ import Link from 'next/link'
 import SiteHeader from '../../components/SiteHeader'
 import { useCart } from '../../components/cart/CartProvider'
 import { cartWhatsappHref } from '../../lib/whatsapp/link'
+import { assetPath } from '../../lib/asset-path'
 
 export default function CartPage() {
   const { items, count, total, ready, storageError, setQuantity, remove, clear } = useCart()
@@ -22,7 +23,7 @@ export default function CartPage() {
         <div className="cart-layout">
           <div className="cart-items">
             {items.map(item => <article className="cart-item" key={item.id}>
-              <div className="cart-item-image"><img src={item.image} alt="" /></div>
+              <div className="cart-item-image"><img src={assetPath(item.image)} alt="" /></div>
               <div className="cart-item-main">
                 <h2>{item.name}</h2>
                 <p>S/ {item.price.toFixed(2)} por unidad</p>

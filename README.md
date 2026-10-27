@@ -11,6 +11,10 @@ npm.cmd run dev
 
 Abre http://localhost:3000.
 
+## Web pública
+
+GitHub Pages publica automáticamente la rama `main` en https://angelhuamani27-tech.github.io/Tienda_Zapata/. El flujo de GitHub Actions ejecuta pruebas, comprueba TypeScript, genera la versión estática y la despliega. Los cambios hechos desde «Gestionar» siguen guardados solo en el navegador de quien los hace; para publicar productos a todos los visitantes hay que cambiar el catálogo inicial en el código y subirlo a `main`.
+
 ## Agregar, quitar y pedir
 
 - En **Gestionar**, añade nombre, descripción, precio e imagen (JPG, PNG o WebP de hasta 5 MB). También puedes quitar modelos con confirmación.

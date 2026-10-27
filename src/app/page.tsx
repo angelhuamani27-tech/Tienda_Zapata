@@ -32,11 +32,11 @@ export default function Home() {
 
       {hasProducts ? <div className="product-grid">
         {products.map(product => <article className="product" key={product.id}>
-          <Link className="product-photo" href={`/producto/${product.id}`} aria-label={`Ver ${product.name}`}>
+          <Link className="product-photo" href={product.id.startsWith('personal-') ? `/producto-local/?id=${encodeURIComponent(product.id)}` : `/producto/${product.id}`} aria-label={`Ver ${product.name}`}>
             <ProductImage src={product.image} name={product.name} isReference={product.isReference} />
           </Link>
           <div className="product-heading">
-            <h3><Link href={`/producto/${product.id}`}>{product.name}</Link></h3>
+            <h3><Link href={product.id.startsWith('personal-') ? `/producto-local/?id=${encodeURIComponent(product.id)}` : `/producto/${product.id}`}>{product.name}</Link></h3>
             <strong>S/ {product.price.toFixed(2)}</strong>
           </div>
           <p className="product-description">{product.description}</p>
