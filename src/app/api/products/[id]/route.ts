@@ -1,4 +1,0 @@
-import { NextResponse } from 'next/server'
-import { cookies } from 'next/headers'
-import { supabaseServer } from '../../../../lib/supabase/server'
-export async function POST(req:Request,{params}:{params:{id:string}}){if(!cookies().get('admin_session'))return NextResponse.json({error:'No autorizado'},{status:401});const db=supabaseServer();if(!db)return NextResponse.json({error:'Falta configurar el almacenamiento'},{status:503});const {data}=await db.from('products').select('image_path').eq('id',params.id).single();const {error}=await db.from('products').delete().eq('id',params.id);if(error)return NextResponse.json({error:'No se pudo eliminar'},{status:503});if(data?.image_path){const path=data.image_path.split('/').pop();if(path)await db.storage.from('product-images').remove([path])}return NextResponse.redirect(new URL('/admin',req.url))}

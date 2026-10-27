@@ -1,7 +1,10 @@
 node_modules/
+node_modules.broken/
 .next/
 out/
 .env*
 !.env.example
 coverage/
 *.log
+.taste-skill/
+*.tsbuildinfo

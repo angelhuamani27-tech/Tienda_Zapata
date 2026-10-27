@@ -1,2 +1,0 @@
-import { NextResponse } from 'next/server'
-export async function POST(req:Request){const {email,password}=await req.json();if(email===process.env.ADMIN_EMAIL&&password===process.env.ADMIN_PASSWORD){const r=NextResponse.json({ok:true});r.cookies.set('admin_session','1',{httpOnly:true,sameSite:'lax',secure:process.env.NODE_ENV==='production',path:'/'});return r}return NextResponse.json({error:'invalid'}, {status:401})}
