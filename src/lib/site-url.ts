@@ -4,4 +4,4 @@ export const siteUrl = configured && /^https:\/\/[^\s/]+(?:\/[^\s]*)?$/.test(con
   ? configured
   : undefined
 
-export const productUrl = (id: string) => siteUrl ? `${siteUrl}/producto/${encodeURIComponent(id)}` : undefined
+export const productUrl = (id: string) => siteUrl ? `${siteUrl}/producto/${encodeURIComponent(id)}/` : undefined

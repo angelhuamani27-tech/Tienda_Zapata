@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { useState } from 'react'
+import { assetPath } from '../../lib/asset-path'
 
 type Props = {
   src: string
@@ -16,6 +17,6 @@ export default function ProductImage({ src, name, loading = 'lazy', sizes = '(ma
 
   return <div className="product-image">
     {failed ? <span role="img" aria-label={`Imagen de ${name} no disponible`}>Imagen no disponible</span> :
-      <Image src={src} alt={`${isReference ? 'Ilustración referencial de' : 'Foto de'} ${name}`} fill sizes={sizes} loading={loading} quality={80} unoptimized={src.startsWith('blob:')} onError={() => setFailed(true)} />}
+      <Image src={assetPath(src)} alt={`${isReference ? 'Ilustración referencial de' : 'Foto de'} ${name}`} fill sizes={sizes} loading={loading} quality={80} unoptimized={src.startsWith('blob:')} onError={() => setFailed(true)} />}
   </div>
 }

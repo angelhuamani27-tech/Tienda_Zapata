@@ -4,6 +4,7 @@ import { useState, type FormEvent } from 'react'
 import Link from 'next/link'
 import SiteHeader from '../../components/SiteHeader'
 import { useCatalogue } from '../../components/catalogue/CatalogueProvider'
+import { assetPath } from '../../lib/asset-path'
 
 export default function ManagePage() {
   const { products, ready, error: storageError, addProduct, removeProduct } = useCatalogue()
@@ -70,7 +71,7 @@ export default function ManagePage() {
           <div className="manage-list-heading"><h2 id="current-title">Productos actuales</h2><span>{products.length}</span></div>
           {!ready ? <p>Cargando productos guardados…</p> : products.length === 0 ? <p>No hay productos. Agrega el primero con el formulario.</p> :
             <div className="manage-list">{products.map(product => <article className="manage-row" key={product.id}>
-              <img src={product.image} alt="" />
+              <img src={assetPath(product.image)} alt="" />
               <div><h3>{product.name}</h3><p>S/ {product.price.toFixed(2)}</p></div>
               <button type="button" onClick={() => handleDelete(product.id, product.name)} disabled={busy || !!storageError} aria-label={`Quitar ${product.name}`}>Quitar</button>
             </article>)}</div>}

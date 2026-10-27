@@ -4,7 +4,6 @@ import { notFound } from 'next/navigation'
 import SiteHeader from '../../../components/SiteHeader'
 import ProductImage from '../../../components/products/ProductImage'
 import AddToCartButton from '../../../components/cart/AddToCartButton'
-import LocalProductDetail from '../../../components/catalogue/LocalProductDetail'
 import ProductAvailability from '../../../components/catalogue/ProductAvailability'
 import { getProduct, products } from '../../../data/products'
 import { siteUrl } from '../../../lib/site-url'
@@ -19,9 +18,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params
   const product = getProduct(id)
-  if (!product) return id.startsWith('personal-')
-    ? { title: 'Producto del navegador | Catálogo de calzado', robots: { index: false, follow: false } }
-    : { title: 'Producto no disponible' }
+  if (!product) return { title: 'Producto no disponible' }
 
   return {
     title: `${product.name} | Catálogo de calzado`,
@@ -29,14 +26,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: siteUrl ? {
       title: product.name,
       description: product.description,
-      images: [{ url: product.image, alt: `${product.isReference ? 'Ilustración referencial de' : 'Foto de'} ${product.name}` }],
+      images: [{ url: `${siteUrl}${product.image}`, alt: `${product.isReference ? 'Ilustración referencial de' : 'Foto de'} ${product.name}` }],
     } : undefined,
   }
 }
 
 export default async function ProductPage({ params }: Props) {
   const { id } = await params
-  if (id.startsWith('personal-')) return <LocalProductDetail id={id} />
   const product = getProduct(id)
   if (!product) notFound()
 
