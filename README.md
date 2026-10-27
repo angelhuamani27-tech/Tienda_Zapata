@@ -1,6 +1,6 @@
 # Zapata — catálogo por WhatsApp
 
-Catálogo público de calzado de ejemplo. Cada producto tiene foto, nombre, descripción y precio en soles. El botón abre WhatsApp al **+51 994 431 924** con el nombre del producto en un mensaje que el visitante envía manualmente. No hay cuentas, administración, carrito ni pedidos guardados.
+Catálogo público con ocho modelos de calzado de ejemplo. Cada producto tiene foto, nombre, descripción y precio en soles. El botón abre WhatsApp al **+51 994 431 924** con el nombre del producto en un mensaje que el visitante envía manualmente. No hay cuentas, administración, carrito ni pedidos guardados.
 
 ## Ejecutar
 

@@ -6,7 +6,7 @@ import { whatsappHref } from '../src/lib/whatsapp/link'
 
 describe('catálogo y pedidos', () => {
   it('cada producto tiene datos completos y una imagen local única', () => {
-    expect(products.length).toBeGreaterThan(0)
+    expect(products).toHaveLength(8)
     expect(new Set(products.map(product => product.id)).size).toBe(products.length)
     expect(new Set(products.map(product => product.image)).size).toBe(products.length)
     for (const product of products) {
