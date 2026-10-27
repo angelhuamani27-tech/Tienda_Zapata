@@ -67,7 +67,6 @@ img { display: block; max-width: 100%; }
 .back-link { display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; font-weight: 700; }
 .detail-info h1 { margin: 42px 0 20px; font-family: Georgia, serif; font-size: clamp(54px, 6vw, 90px); font-weight: 400; letter-spacing: -.05em; line-height: 1; }
 .detail-description { margin: 0 0 28px; max-width: 480px; font-size: 20px; line-height: 1.5; }
-.detail-reference { max-width: 480px; margin: 22px 0 0; padding: 14px 18px; background: var(--field); line-height: 1.45; }
 .detail-fact { display: flex; gap: 24px; margin: 0 0 12px; }
 .detail-fact strong { min-width: 80px; }
 .detail-price { margin: 30px 0 24px; font-size: 26px; font-weight: 700; }

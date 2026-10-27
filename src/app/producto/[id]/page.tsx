@@ -49,7 +49,6 @@ export default async function ProductPage({ params }: Props) {
           Pedir por WhatsApp <span aria-hidden="true">↗</span>
         </a>
         <p className="detail-note">WhatsApp abrirá un mensaje preparado. El envío lo haces tú.</p>
-        {product.isReference && <p className="detail-reference">Proyecto académico: imagen, descripción y precio de ejemplo.</p>}
       </div>
     </article>
   </main>

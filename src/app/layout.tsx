@@ -4,8 +4,8 @@ import { siteUrl } from '../lib/site-url'
 
 export const metadata: Metadata = {
   metadataBase: siteUrl ? new URL(siteUrl) : undefined,
-  title: 'Catálogo de calzado | Demo académica',
-  description: 'Explora 30 modelos de calzado con precios de ejemplo y abre una consulta por WhatsApp. Proyecto académico.',
+  title: 'Catálogo de calzado | Pedidos por WhatsApp',
+  description: 'Explora 30 modelos de calzado y consulta el que prefieras por WhatsApp.',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
