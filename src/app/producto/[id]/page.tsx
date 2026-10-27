@@ -5,6 +5,7 @@ import SiteHeader from '../../../components/SiteHeader'
 import ProductImage from '../../../components/products/ProductImage'
 import AddToCartButton from '../../../components/cart/AddToCartButton'
 import LocalProductDetail from '../../../components/catalogue/LocalProductDetail'
+import ProductAvailability from '../../../components/catalogue/ProductAvailability'
 import { getProduct, products } from '../../../data/products'
 import { siteUrl } from '../../../lib/site-url'
 import { whatsappHref } from '../../../lib/whatsapp/link'
@@ -39,7 +40,7 @@ export default async function ProductPage({ params }: Props) {
   const product = getProduct(id)
   if (!product) notFound()
 
-  return <main>
+  return <ProductAvailability id={id}><main>
     <SiteHeader />
     <article className="detail shell">
       <div className="detail-photo"><ProductImage src={product.image} name={product.name} isReference={product.isReference} loading="eager" sizes="(max-width: 720px) 100vw, 60vw" /></div>
@@ -57,5 +58,5 @@ export default async function ProductPage({ params }: Props) {
         <p className="detail-note">WhatsApp abrirá un mensaje preparado. El envío lo haces tú.</p>
       </div>
     </article>
-  </main>
+  </main></ProductAvailability>
 }
