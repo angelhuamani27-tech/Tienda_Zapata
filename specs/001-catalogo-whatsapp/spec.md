@@ -1,25 +1,24 @@
-# Especificación vigente: catálogo Zapata por WhatsApp
+# Especificación vigente: catálogo por WhatsApp
 
-**Alcance actualizado por el usuario:** 26 de octubre de 2026. Esta versión reemplaza el alcance anterior con administración y Supabase.
+**Decisiones del propietario, 27 de octubre de 2026:** retirar la marca visible «Zapata». El proyecto es académico y no se publicará como tienda real; se autorizó inventar precios y descripciones para las 30 ilustraciones generadas con IA.
 
-## Historias
+## Experiencia
 
-1. Una persona visita la web sin cuenta y ve ocho productos de ejemplo con nombre, una foto, precio en soles y descripción, tanto en celular como en computadora.
-2. Puede abrir la página de un producto. Si la dirección no existe, ve un mensaje claro y un enlace de regreso.
-3. Puede pulsar «Pedir por WhatsApp» en cada producto. Se abre `https://wa.me/51994431924` con `Hola, quiero pedir: [nombre del producto]` precargado. El cliente envía manualmente.
+- Web en español de Perú, accesible en celular y computadora.
+- El catálogo muestra 30 modelos de demostración, cada uno con imagen, nombre, descripción, precio de ejemplo en soles y ficha individual. La interfaz indica que los datos son académicos.
+- Cuando se sustituyan por productos reales, cada uno tendrá nombre, una foto, precio en soles y descripción. Material y tallas son opcionales y solo se publican si se confirman.
+- El visitante puede abrir la ficha de un modelo y pulsar «Pedir por WhatsApp». El enlace lleva el identificador y el nombre al número fijo confirmado. Cuando exista dominio público, podrá incluir el enlace de la ficha.
+- El cliente envía manualmente. La tienda no guarda pedidos ni confirma ventas.
+- Si el catálogo vuelve a quedar vacío, la página informa claramente que está en preparación y permite una consulta general por WhatsApp.
 
-## Límites
+## Fuera de alcance
 
-- No hay administración, cuentas, API de escritura, base de datos, carrito, pagos, inventario ni historial de pedidos.
-- Los productos y sus imágenes ficticias se publican con la web y se ven igual desde cualquier dispositivo. Para cambiarlos se modifica el código y se vuelve a publicar.
-- La tienda no guarda pedidos ni confirma ventas. Fotos, nombres y precios son de demostración hasta que el propietario los reemplace.
-- La portada explica brevemente cómo consultar un producto y enviar el mensaje manualmente.
-- El número de WhatsApp se puede fijar al desplegar; por defecto es el número peruano confirmado.
+Sin cuentas, administración, carrito, pagos, inventario, categorías ni historial de pedidos. Los datos inventados se identifican como parte de la demo.
 
-## Criterios de aceptación
+## Criterios
 
-- La portada y cada producto cargan con imágenes locales, texto legible y sin desplazamiento horizontal en móvil.
-- Cada botón abre el número y el nombre exacto de su producto.
-- Una imagen que falle muestra una alternativa textual sin ocultar los demás datos.
-- Las rutas antiguas de administración y escritura no existen.
-- Pruebas, compilación de producción y revisión visual se ejecutan antes de afirmar que funciona.
+- No se ve «Zapata» ni se presentan las ilustraciones como inventario real.
+- La estructura muestra 30 modelos sin páginas o tarjetas vacías.
+- Las fotos se muestran con tamaños adecuados y carga diferida; la ficha conserva el mensaje alternativo si una foto falla.
+- Las rutas de producto inexistentes devuelven una página clara.
+- Cada enlace de WhatsApp identifica el producto correcto.
