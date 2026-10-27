@@ -22,16 +22,18 @@ img { display: block; max-width: 100%; }
 .site-header nav a { min-height: 44px; display: inline-flex; align-items: center; font-size: 15px; font-weight: 600; }
 .site-header nav a:hover, .back-link:hover, .jump-link:hover { color: var(--accent); }
 
-.intro { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(260px, .7fr); align-items: end; gap: 8%; padding-block: 76px 86px; }
+.intro { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(260px, .7fr); align-items: end; gap: 8%; padding-block: 60px 68px; }
 .intro h1 { max-width: 920px; margin: 0; font-family: Georgia, serif; font-size: clamp(56px, 7.2vw, 112px); font-weight: 400; letter-spacing: -.055em; line-height: .98; }
 .intro-side { padding-bottom: 8px; }
 .intro-side p { max-width: 360px; margin: 0 0 28px; font-size: 18px; line-height: 1.48; }
 .jump-link { display: inline-flex; align-items: center; gap: 32px; min-height: 44px; border-bottom: 2px solid currentColor; font-size: 15px; font-weight: 700; }
+.intro-button { width: fit-content; }
 
 .catalogue { padding-bottom: 100px; scroll-margin-top: 18px; }
 .catalogue-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; margin-bottom: 30px; }
 .catalogue-heading h2 { margin: 0; font-family: Georgia, serif; font-size: clamp(42px, 4.5vw, 65px); font-weight: 400; letter-spacing: -.04em; }
 .catalogue-heading p { margin: 0; color: var(--muted); font-size: 15px; }
+.catalogue-notice { margin: -4px 0 28px; padding: 14px 18px; background: var(--field); color: var(--ink); font-size: 15px; line-height: 1.4; }
 
 .empty-state { min-height: 370px; display: flex; align-items: end; justify-content: space-between; gap: 40px; padding: clamp(28px, 5vw, 70px); background: var(--field); }
 .empty-state h3 { max-width: 700px; margin: 0 0 20px; font-family: Georgia, serif; font-size: clamp(42px, 5vw, 72px); font-weight: 400; letter-spacing: -.04em; line-height: 1.06; }
@@ -42,14 +44,15 @@ img { display: block; max-width: 100%; }
 .product-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 18px; row-gap: 58px; }
 .product { min-width: 0; }
 .product-photo { display: block; background: var(--field); overflow: hidden; }
-.product-image { position: relative; width: 100%; aspect-ratio: 4 / 3; background: var(--field); }
-.product-image img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s ease; }
+.product-image { position: relative; width: 100%; aspect-ratio: 1; background: #fff; }
+.product-image img { width: 100%; height: 100%; object-fit: contain; transition: transform .3s ease; }
 .product-photo:hover img { transform: scale(1.025); }
 .product-image span { width: 100%; height: 100%; display: grid; place-items: center; padding: 20px; color: var(--muted); text-align: center; }
-.product-heading { display: flex; justify-content: space-between; gap: 18px; align-items: baseline; margin-top: 18px; }
+.product-heading { margin-top: 18px; }
 .product-heading h3 { margin: 0; font-family: Georgia, serif; font-size: 28px; font-weight: 400; line-height: 1.1; }
-.product-heading strong { flex: none; font-size: 16px; }
+.product-heading strong { display: block; margin-top: 10px; font-size: 15px; }
 .product-description { min-height: 46px; margin: 9px 0 16px; color: var(--muted); line-height: 1.45; }
+.product-heading h3 a:hover { color: var(--accent); }
 .order-link { min-height: 48px; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid var(--ink); font-weight: 700; }
 .order-link:hover { color: var(--accent); border-color: var(--accent); }
 
@@ -65,6 +68,7 @@ img { display: block; max-width: 100%; }
 .back-link { display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; font-weight: 700; }
 .detail-info h1 { margin: 42px 0 20px; font-family: Georgia, serif; font-size: clamp(54px, 6vw, 90px); font-weight: 400; letter-spacing: -.05em; line-height: 1; }
 .detail-description { margin: 0 0 28px; max-width: 480px; font-size: 20px; line-height: 1.5; }
+.detail-reference { max-width: 480px; margin: -8px 0 28px; padding: 14px 18px; background: var(--field); line-height: 1.45; }
 .detail-fact { display: flex; gap: 24px; margin: 0 0 12px; }
 .detail-fact strong { min-width: 80px; }
 .detail-price { margin: 30px 0 24px; font-size: 26px; font-weight: 700; }

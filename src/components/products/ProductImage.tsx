@@ -8,13 +8,14 @@ type Props = {
   name: string
   loading?: 'eager' | 'lazy'
   sizes?: string
+  isReference?: boolean
 }
 
-export default function ProductImage({ src, name, loading = 'lazy', sizes = '(max-width: 600px) 100vw, (max-width: 1050px) 50vw, 33vw' }: Props) {
+export default function ProductImage({ src, name, loading = 'lazy', sizes = '(max-width: 600px) 100vw, (max-width: 1050px) 50vw, 33vw', isReference = false }: Props) {
   const [failed, setFailed] = useState(false)
 
   return <div className="product-image">
-    {failed ? <span role="img" aria-label={`Foto de ${name} no disponible`}>Foto no disponible</span> :
-      <Image src={src} alt={name} fill sizes={sizes} loading={loading} quality={80} onError={() => setFailed(true)} />}
+    {failed ? <span role="img" aria-label={`Imagen de ${name} no disponible`}>Imagen no disponible</span> :
+      <Image src={src} alt={`${isReference ? 'Ilustración referencial de' : 'Foto de'} ${name}`} fill sizes={sizes} loading={loading} quality={80} onError={() => setFailed(true)} />}
   </div>
 }

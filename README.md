@@ -1,6 +1,6 @@
 # Catálogo de calzado por WhatsApp
 
-Web pública pensada para **hasta 30 productos reales**, con una foto, nombre, precio en soles y descripción por producto. El pedido se inicia en WhatsApp; la tienda no guarda mensajes ni confirma ventas. Por decisión del propietario, el catálogo queda vacío hasta recibir fotos y datos reales.
+Web pública con **30 imágenes referenciales** aportadas por el propietario. El archivo original advierte que son ilustraciones generadas con IA, no fotografías de productos reales. Por eso no se muestran marcas, características ni precios sin confirmar. Cada modelo tiene una ficha y un botón para consultarlo por WhatsApp; la tienda no guarda mensajes ni confirma ventas.
 
 ## Ejecutar en local
 
@@ -11,11 +11,11 @@ npm.cmd run dev
 
 Abre http://localhost:3000. El número por defecto es **+51 994 431 924**. Para cambiarlo antes de publicar, configura `NEXT_PUBLIC_WHATSAPP_NUMBER` con código de país y solo dígitos. Usa `.env.example` como guía; no subas `.env.local`.
 
-## Incorporar las fotos que enviará el propietario
+## Sustituir las imágenes referenciales por productos reales
 
 1. Reúne **una foto real por producto** y confirma nombre, precio y descripción. Material y tallas son opcionales; solo se muestran cuando se confirmen.
 2. Guarda cada foto en `public/images/products/` con un nombre corto y único, por ejemplo `zapato-negro.jpg`. Acepta JPG, PNG o WebP. Conviene que la foto esté bien iluminada y que el producto quede entero dentro del encuadre.
-3. Añade una entrada a `src/data/products.ts` con `id`, `name`, `description`, `price` e `image`. Ejemplo:
+3. Sustituye la entrada correspondiente en `src/data/products.ts` con `id`, `name`, `description`, `price` e `image`; quita `isReference`. Ejemplo:
 
 ```ts
 {
@@ -27,7 +27,7 @@ Abre http://localhost:3000. El número por defecto es **+51 994 431 924**. Para 
 }
 ```
 
-No publiques una entrada sin su foto y datos confirmados. El archivo valida el formato y el límite de 30 productos durante la compilación. Las imágenes se sirven en tamaños adecuados para cada pantalla y cargan a medida que el visitante baja por la página.
+No presentes las ilustraciones como inventario real. El archivo valida el formato y el límite de 30 modelos durante la compilación. Las imágenes se sirven en tamaños adecuados para cada pantalla y cargan a medida que el visitante baja por la página.
 
 ## Compartir la ficha del producto
 
