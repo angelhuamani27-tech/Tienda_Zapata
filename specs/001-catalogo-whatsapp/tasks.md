@@ -1,10 +1,9 @@
 # Tareas vigentes
 
-- [x] Retirar administración, API de escritura y Supabase.
-- [x] Crear ocho productos de ejemplo y sus fotos originales.
-- [x] Implementar portada y detalle responsive.
-- [x] Conectar pedidos individuales por WhatsApp al número confirmado.
-- [x] Actualizar instrucciones locales y dependencias.
-- [x] Probar catálogo, imágenes y enlaces; compilar para producción.
-- [x] Revisar visualmente la versión final y probar la web local.
-- [ ] Publicar cuando el propietario decida el despliegue público.
+- [x] Eliminar «Zapata» de la interfaz y los datos de ejemplo.
+- [x] Preparar catálogo vacío y estructura de hasta 30 productos reales.
+- [x] Rediseñar portada, fichas y vista móvil para llegar antes al catálogo.
+- [x] Dejar materiales y tallas opcionales para datos confirmados.
+- [x] Preparar enlaces de producto para compartir cuando exista dominio público.
+- [ ] Incorporar fotos y datos reales enviados por el propietario.
+- [ ] Verificar los productos reales y publicar el cambio.

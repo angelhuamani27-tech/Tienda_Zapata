@@ -1,2 +1,15 @@
+import { productUrl } from '../site-url'
+
 export const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '51994431924'
-export const whatsappHref = (name: string) => `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`Hola, quiero pedir: ${name}`)}`
+
+function whatsappLink(message: string): string {
+  if (!/^\d{8,15}$/.test(WHATSAPP_NUMBER)) throw new Error('Número de WhatsApp inválido.')
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
+}
+
+export function whatsappHref(name: string, id?: string): string {
+  const url = id ? productUrl(id) : undefined
+  return whatsappLink(`Hola, quiero pedir: ${name}${url ? `\n${url}` : ''}`)
+}
+
+export const generalWhatsappHref = () => whatsappLink('Hola, tengo una consulta sobre el catálogo.')

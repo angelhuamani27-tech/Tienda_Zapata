@@ -1,9 +1,7 @@
 # Plan vigente
 
-1. Mantener una web Next.js estática con ocho productos de ejemplo en `src/data/products.ts` e imágenes originales en `public/images/`.
-2. Mostrar portada responsive, detalle de producto y alternativa para imagen rota.
-3. Construir cada enlace con el número peruano y el nombre del producto codificado para WhatsApp.
-4. Verificar datos, rutas, imágenes y enlaces; ejecutar pruebas, compilación y revisión visual móvil/escritorio.
-5. Publicar el repositorio con GitHub Flow. El despliegue público queda separado de esta ejecución local.
-
-No se requiere Supabase, secretos, autenticación ni servicio de almacenamiento.
+1. Mantener una web Next.js de catálogo sin administración ni almacenamiento de pedidos.
+2. Preparar una lista validada de hasta 30 productos con una foto real por entrada en `public/images/products/`.
+3. Usar un diseño centrado en las fotos, con encabezado corto, catálogo cercano al inicio y ficha individual.
+4. Mantener WhatsApp como único canal de consulta de pedidos. Añadir enlace público del producto al mensaje cuando exista dominio.
+5. Comprobar compilación, vistas móvil/escritorio, fotos y enlaces antes de publicar productos.

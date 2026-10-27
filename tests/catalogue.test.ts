@@ -1,26 +1,31 @@
 import { describe, expect, it } from 'vitest'
-import { existsSync } from 'node:fs'
-import { join } from 'node:path'
-import { products, getProduct } from '../src/data/products'
-import { whatsappHref } from '../src/lib/whatsapp/link'
+import { getProduct, MAX_PRODUCTS, products, type Product, validateProducts } from '../src/data/products'
+import { generalWhatsappHref, whatsappHref } from '../src/lib/whatsapp/link'
 
-describe('catálogo y pedidos', () => {
-  it('cada producto tiene datos completos y una imagen local única', () => {
-    expect(products).toHaveLength(8)
-    expect(new Set(products.map(product => product.id)).size).toBe(products.length)
-    expect(new Set(products.map(product => product.image)).size).toBe(products.length)
-    for (const product of products) {
-      expect(product.name).not.toBe('')
-      expect(product.description).not.toBe('')
-      expect(product.price).toBeGreaterThan(0)
-      expect(product.image).toMatch(/^\/images\/.+\.png$/)
-      expect(existsSync(join(process.cwd(), 'public', product.image))).toBe(true)
-      expect(getProduct(product.id)).toEqual(product)
-      const url = new URL(whatsappHref(product.name))
-      expect(url.hostname).toBe('wa.me')
-      expect(url.pathname).toBe('/51994431924')
-      expect(url.searchParams.get('text')).toBe(`Hola, quiero pedir: ${product.name}`)
-    }
+const sample = (id: string): Product => ({
+  id, name: `Modelo ${id}`, description: 'Descripción real del modelo.', price: 120.50,
+  image: `/images/products/${id}.jpg`,
+})
+
+describe('catálogo preparado para fotos reales', () => {
+  it('permanece vacío y admite hasta 30 productos válidos', () => {
+    expect(products).toHaveLength(0)
+    expect(getProduct('desconocido')).toBeUndefined()
+    expect(() => validateProducts(Array.from({ length: MAX_PRODUCTS }, (_, index) => sample(`modelo-${index + 1}`)))).not.toThrow()
+    expect(() => validateProducts(Array.from({ length: MAX_PRODUCTS + 1 }, (_, index) => sample(`modelo-${index + 1}`)))).toThrow()
   })
-  it('un producto desconocido no se muestra', () => { expect(getProduct('desconocido')).toBeUndefined() })
+
+  it('rechaza fotos mal nombradas, datos inválidos e identificadores repetidos', () => {
+    expect(() => validateProducts([sample('uno'), sample('uno')])).toThrow()
+    expect(() => validateProducts([{ ...sample('uno'), image: '/images/products/otro.jpg' }])).toThrow()
+    expect(() => validateProducts([{ ...sample('uno'), price: 0 }])).toThrow()
+  })
+
+  it('prepara consultas de WhatsApp al número confirmado', () => {
+    const product = new URL(whatsappHref('Zapato azul'))
+    expect(product.hostname).toBe('wa.me')
+    expect(product.pathname).toBe('/51994431924')
+    expect(product.searchParams.get('text')).toBe('Hola, quiero pedir: Zapato azul')
+    expect(new URL(generalWhatsappHref()).searchParams.get('text')).toContain('consulta sobre el catálogo')
+  })
 })

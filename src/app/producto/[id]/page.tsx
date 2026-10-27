@@ -1,13 +1,55 @@
 import Link from 'next/link'
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { getProduct, products } from '../../../data/products'
-import { whatsappHref } from '../../../lib/whatsapp/link'
+import SiteHeader from '../../../components/SiteHeader'
 import ProductImage from '../../../components/products/ProductImage'
+import { getProduct, products } from '../../../data/products'
+import { siteUrl } from '../../../lib/site-url'
+import { whatsappHref } from '../../../lib/whatsapp/link'
 
-export function generateStaticParams() { return products.map(product => ({ id: product.id })) }
-export default async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
+type Props = { params: Promise<{ id: string }> }
+
+export function generateStaticParams() {
+  return products.map(product => ({ id: product.id }))
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = await params
+  const product = getProduct(id)
+  if (!product) return { title: 'Producto no disponible' }
+
+  return {
+    title: `${product.name} | Catálogo de calzado`,
+    description: product.description,
+    openGraph: siteUrl ? {
+      title: product.name,
+      description: product.description,
+      images: [{ url: product.image, alt: product.name }],
+    } : undefined,
+  }
+}
+
+export default async function ProductPage({ params }: Props) {
   const { id } = await params
   const product = getProduct(id)
   if (!product) notFound()
-  return <main className="shell detail-page"><header className="topbar"><Link className="brand" href="/">zapata<span>.</span></Link><Link className="top-link" href="/#catalogo">Volver al catálogo ←</Link></header><article className="detail"><div className="detail-photo"><ProductImage src={product.image} name={product.name} loading="eager" /></div><div className="detail-copy"><Link className="text-link" href="/#catalogo">← Todos los modelos</Link><h1>{product.name}</h1><p>{product.description}</p><strong>S/ {product.price.toFixed(2)}</strong><a className="order-link detail-order" href={whatsappHref(product.name)} target="_blank" rel="noopener noreferrer">Pedir por WhatsApp <span aria-hidden="true">↗</span></a><small>Se abrirá WhatsApp con un mensaje listo para enviar. Tú decides si lo envías.</small></div></article></main>
+
+  return <main>
+    <SiteHeader />
+    <article className="detail shell">
+      <div className="detail-photo"><ProductImage src={product.image} name={product.name} loading="eager" sizes="(max-width: 720px) 100vw, 60vw" /></div>
+      <div className="detail-info">
+        <Link className="back-link" href="/#catalogo">← Volver a los modelos</Link>
+        <h1>{product.name}</h1>
+        <p className="detail-description">{product.description}</p>
+        {product.material && <p className="detail-fact"><strong>Material</strong><span>{product.material}</span></p>}
+        {product.sizes?.length ? <p className="detail-fact"><strong>Tallas</strong><span>{product.sizes.join(', ')}</span></p> : null}
+        <p className="detail-price">S/ {product.price.toFixed(2)}</p>
+        <a className="button detail-button" href={whatsappHref(product.name, product.id)} target="_blank" rel="noopener noreferrer">
+          Pedir por WhatsApp <span aria-hidden="true">↗</span>
+        </a>
+        <p className="detail-note">WhatsApp abrirá un mensaje preparado. El envío lo haces tú.</p>
+      </div>
+    </article>
+  </main>
 }
