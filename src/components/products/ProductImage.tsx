@@ -16,6 +16,6 @@ export default function ProductImage({ src, name, loading = 'lazy', sizes = '(ma
 
   return <div className="product-image">
     {failed ? <span role="img" aria-label={`Imagen de ${name} no disponible`}>Imagen no disponible</span> :
-      <Image src={src} alt={`${isReference ? 'Ilustración referencial de' : 'Foto de'} ${name}`} fill sizes={sizes} loading={loading} quality={80} onError={() => setFailed(true)} />}
+      <Image src={src} alt={`${isReference ? 'Ilustración referencial de' : 'Foto de'} ${name}`} fill sizes={sizes} loading={loading} quality={80} unoptimized={src.startsWith('blob:')} onError={() => setFailed(true)} />}
   </div>
 }

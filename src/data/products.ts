@@ -1,5 +1,5 @@
 /** Academic demo: names, prices and descriptions below are examples. */
-export const MAX_PRODUCTS = 30
+export const MAX_PRODUCTS = 200
 
 export type Product = {
   id: string

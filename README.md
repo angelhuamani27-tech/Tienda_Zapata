@@ -1,6 +1,6 @@
 # Catálogo de calzado por WhatsApp
 
-Demo académica de un catálogo de calzado con **30 modelos**, precios de ejemplo en soles y fichas individuales. Las imágenes del ZIP aportado son ilustraciones generadas con IA. Cada modelo tiene un botón que abre WhatsApp con un mensaje preparado y su identificador. No hay carrito, pagos, administración ni registro de pedidos.
+Catálogo de calzado con 30 modelos iniciales, precios en soles, fichas individuales y pedidos por WhatsApp. El carrito permite reunir varios modelos y preparar un solo mensaje con cantidades y total. Desde «Gestionar» se pueden agregar o quitar productos **sin usuario ni contraseña**. No hay pagos ni registro de pedidos.
 
 ## Ejecutar en local
 
@@ -9,11 +9,18 @@ npm.cmd ci
 npm.cmd run dev
 ```
 
-Abre http://localhost:3000. El número por defecto es **+51 994 431 924**. Para cambiarlo antes de publicar, configura `NEXT_PUBLIC_WHATSAPP_NUMBER` con código de país y solo dígitos. Usa `.env.example` como guía; no subas `.env.local`.
+Abre http://localhost:3000.
+
+## Agregar, quitar y pedir
+
+- En **Gestionar**, añade nombre, descripción, precio e imagen (JPG, PNG o WebP de hasta 5 MB). También puedes quitar modelos con confirmación.
+- Esos cambios y las imágenes se guardan en **IndexedDB de este navegador**. No se comparten con otros dispositivos ni con otros visitantes. Borrar los datos del navegador elimina los cambios locales. Los 30 modelos iniciales siguen en el código del proyecto.
+- En el catálogo, usa «Agregar al carrito». En **Carrito**, cambia cantidades o quita productos y pulsa «Pedir por WhatsApp». Se abre un mensaje con el detalle y el total; el cliente lo envía manualmente. También se puede pedir un modelo individual desde su tarjeta o ficha.
+- El número por defecto es **+51 994 431 924**. Para cambiarlo, configura `NEXT_PUBLIC_WHATSAPP_NUMBER` con código de país y solo dígitos. Usa `.env.example` como guía; no subas `.env.local`.
 
 ## Datos de la demo
 
-Los nombres, descripciones y precios de `src/data/products.ts` son inventados para este trabajo académico. La interfaz lo indica de forma visible. Las 30 ilustraciones están en `public/images/products/` y se cargan de manera adaptable al tamaño de pantalla.
+Los nombres, descripciones y precios iniciales de `src/data/products.ts` son de ejemplo. Las 30 ilustraciones están en `public/images/products/` y se cargan de manera adaptable al tamaño de pantalla.
 
 ## Si después se usa para una tienda real
 
@@ -31,11 +38,11 @@ Los nombres, descripciones y precios de `src/data/products.ts` son inventados pa
 }
 ```
 
-No presentes las ilustraciones ni los precios de la demo como inventario real. El archivo valida el formato y el límite de 30 modelos durante la compilación.
+No presentes las ilustraciones ni los precios de la demo como inventario real. El catálogo admite hasta 200 modelos por navegador.
 
 ## Compartir la ficha del producto
 
-Cuando la web tenga un dominio público, configura `NEXT_PUBLIC_SITE_URL=https://tu-dominio` en el despliegue. La vista previa del enlace mostrará la imagen y los datos del modelo, y el mensaje de WhatsApp incluirá su enlace. En local, el mensaje lleva el identificador y el nombre para no enviar una dirección `localhost`.
+Cuando la web tenga un dominio público, configura `NEXT_PUBLIC_SITE_URL=https://tu-dominio` en el despliegue. El mensaje de WhatsApp incluirá el enlace de los modelos iniciales. Los modelos agregados en un navegador no tienen enlace público compartible; el mensaje usa su identificador y nombre.
 
 ## Comprobar
 
