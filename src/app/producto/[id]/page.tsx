@@ -42,14 +42,14 @@ export default async function ProductPage({ params }: Props) {
         <Link className="back-link" href="/#catalogo">← Volver a los modelos</Link>
         <h1>{product.name}</h1>
         <p className="detail-description">{product.description}</p>
-        {product.isReference && <p className="detail-reference">Esta es una imagen ilustrativa. Confirma el modelo, sus características y su precio antes de pedir.</p>}
         {product.material && <p className="detail-fact"><strong>Material</strong><span>{product.material}</span></p>}
         {product.sizes?.length ? <p className="detail-fact"><strong>Tallas</strong><span>{product.sizes.join(', ')}</span></p> : null}
-        <p className="detail-price">{product.id.replace('-', ' ')} · {product.price === undefined ? 'Precio a consultar' : `S/ ${product.price.toFixed(2)}`}</p>
-        <a className="button detail-button" href={whatsappHref(product.name, product.id, product.isReference)} target="_blank" rel="noopener noreferrer">
-          Consultar por WhatsApp <span aria-hidden="true">↗</span>
+        <p className="detail-price">S/ {product.price.toFixed(2)}</p>
+        <a className="button detail-button" href={whatsappHref(product.name, product.id)} target="_blank" rel="noopener noreferrer">
+          Pedir por WhatsApp <span aria-hidden="true">↗</span>
         </a>
         <p className="detail-note">WhatsApp abrirá un mensaje preparado. El envío lo haces tú.</p>
+        {product.isReference && <p className="detail-reference">Proyecto académico: imagen, descripción y precio de ejemplo.</p>}
       </div>
     </article>
   </main>

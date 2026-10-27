@@ -1,36 +1,54 @@
-/** Replace these reference images with confirmed product data before selling. */
+/** Academic demo: names, prices and descriptions below are examples. */
 export const MAX_PRODUCTS = 30
 
 export type Product = {
   id: string
   name: string
   description: string
-  price?: number
+  price: number
   image: string
   isReference?: boolean
   material?: string
   sizes?: string[]
 }
 
-const referenceNames = [
-  'Zapatillas urbanas blancas', 'Zapatillas deportivas negras', 'Zapatillas running gris y rosa',
-  'Zapatillas altas rojo y negro', 'Zapatillas clásicas blancas', 'Deportivas azul marino',
-  'Zapatillas con suela caramelo', 'Zapatillas blancas y beige', 'Deportivas azul oscuro',
-  'Zapatillas running rosadas', 'Zapatillas de lona negras', 'Zapatillas casuales grises',
-  'Zapatillas deportivas beige', 'Zapatos formales negros', 'Zapatillas blancas con verde',
-  'Zapatillas voluminosas negras', 'Zapatillas casuales marrones', 'Zapatillas running blancas y azules',
-  'Zapatillas de lona caña alta', 'Zapatillas sin cordones negras', 'Zapatillas infantiles rosadas',
-  'Zapatillas blancas con gris', 'Sin cordones, suela blanca',
-  'Botines color miel', 'Zapatos casuales marrones', 'Zapatillas blancas con rojo',
-  'Zapatillas de colores pastel', 'Deportivas negro y rojo',
-  'Zapatillas infantiles blancas', 'Trekking negro y naranja',
+const demoModels: ReadonlyArray<readonly [name: string, price: number, description: string]> = [
+  ['Urbana blanca', 129, 'Líneas limpias y acabado blanco para un estilo casual de todos los días.'],
+  ['Deportiva negra', 149, 'Diseño oscuro con detalles claros y una silueta dinámica.'],
+  ['Running gris y rosa', 159, 'Tonos grises con acentos rosados para un look deportivo suave.'],
+  ['Caña alta rojo y negro', 189, 'Contraste de rojo, negro y blanco en una silueta de caña alta.'],
+  ['Clásica blanca', 139, 'Volumen discreto y acabado blanco de inspiración urbana.'],
+  ['Deportiva azul marino', 169, 'Azul profundo y detalles naranjas que resaltan el perfil deportivo.'],
+  ['Negra con suela caramelo', 145, 'Parte superior negra y suela color caramelo de aire casual.'],
+  ['Blanca y beige', 155, 'Paneles claros en blanco y beige para combinar con facilidad.'],
+  ['Deportiva azul oscuro', 165, 'Silueta deportiva azul oscuro con base blanca.'],
+  ['Running rosada', 159, 'Un diseño de tonos rosados con textura visual ligera.'],
+  ['Lona negra', 119, 'Perfil bajo en negro y blanco, un clásico del estilo urbano.'],
+  ['Casual gris', 139, 'Capas en gris y blanco para un conjunto relajado.'],
+  ['Deportiva beige', 159, 'Tonos arena y líneas suaves en una silueta deportiva.'],
+  ['Formal negro', 199, 'Zapato de vestir negro con acabado liso y líneas sobrias.'],
+  ['Blanca con verde', 145, 'Base blanca con acentos verdes para un toque de color.'],
+  ['Voluminosa negra', 179, 'Silueta marcada y monocromática para un estilo más audaz.'],
+  ['Casual marrón', 159, 'Tonos cálidos y base clara en un diseño informal.'],
+  ['Running blanca y azul', 169, 'Blanco luminoso con detalles azules de inspiración deportiva.'],
+  ['Lona de caña alta', 129, 'Caña alta negra con cordones blancos y puntera clara.'],
+  ['Sin cordones negra', 139, 'Diseño negro de líneas simples y perfil compacto.'],
+  ['Infantil rosada', 99, 'Combinación de blanco y rosa con cierre visual de tiras.'],
+  ['Blanca con gris', 145, 'Capas en blanco y gris para un acabado discreto.'],
+  ['Sin cordones bicolor', 139, 'Parte superior negra y base blanca en un diseño minimalista.'],
+  ['Botín color miel', 219, 'Caña media en tono miel y detalles oscuros de inspiración outdoor.'],
+  ['Casual marrón oscuro', 189, 'Zapato marrón de perfil clásico con base contrastante.'],
+  ['Blanca con rojo', 149, 'Contraste en blanco, rojo y negro de carácter deportivo.'],
+  ['Multicolor pastel', 159, 'Mezcla de tonos pastel para un estilo alegre y casual.'],
+  ['Deportiva negro y rojo', 169, 'Negro intenso con acentos rojos y una base clara.'],
+  ['Infantil blanca y celeste', 99, 'Diseño claro con detalles celestes y cierre visual de tiras.'],
+  ['Trekking negro y naranja', 229, 'Silueta robusta en negro y gris con acentos naranjas.'],
 ]
 
-export const products: Product[] = referenceNames.map((name, index) => {
+export const products: Product[] = demoModels.map(([name, price, description], index) => {
   const id = `modelo-${String(index + 1).padStart(2, '0')}`
   return {
-    id, name,
-    description: 'Imagen referencial. Precio y características por confirmar.',
+    id, name, price, description,
     image: `/images/products/${id}.jpg`,
     isReference: true,
   }
@@ -47,8 +65,7 @@ export function validateProducts(items: readonly Product[]): void {
     ids.add(item.id)
     if (!item.name.trim() || item.name.length > 100) throw new Error(`Nombre inválido: ${item.id}`)
     if (!item.description.trim() || item.description.length > 1000) throw new Error(`Descripción inválida: ${item.id}`)
-    if (item.price === undefined && !item.isReference) throw new Error(`Precio no confirmado: ${item.id}`)
-    if (item.price !== undefined && (!Number.isFinite(item.price) || item.price <= 0 || Math.abs(Math.round(item.price * 100) - item.price * 100) > 0.000001)) {
+    if (!Number.isFinite(item.price) || item.price <= 0 || Math.abs(Math.round(item.price * 100) - item.price * 100) > 0.000001) {
       throw new Error(`Precio inválido: ${item.id}`)
     }
     if (!new RegExp(`^/images/products/${item.id}\\.(jpg|jpeg|png|webp)$`, 'i').test(item.image)) {

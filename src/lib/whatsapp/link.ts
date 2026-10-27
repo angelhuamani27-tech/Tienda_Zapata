@@ -7,11 +7,10 @@ function whatsappLink(message: string): string {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
 }
 
-export function whatsappHref(name: string, id?: string, isReference = false): string {
+export function whatsappHref(name: string, id?: string): string {
   const url = id ? productUrl(id) : undefined
-  const message = isReference
-    ? `Hola, quiero consultar por el modelo referencial ${id ? `${id}: ` : ''}${name}`
-    : `Hola, quiero pedir: ${name}`
+  const model = id ? `${id} (${name})` : name
+  const message = `Hola, me interesa el ${model} del catálogo. ¿Me das más información?`
   return whatsappLink(`${message}${url ? `\n${url}` : ''}`)
 }
 
