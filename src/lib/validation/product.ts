@@ -11,4 +11,12 @@ export const imageSchema = z.object({
   size: z.number().max(5 * 1024 * 1024)
 })
 
+export async function imageMatchesType(file: File) {
+  const bytes = new Uint8Array(await file.slice(0, 12).arrayBuffer())
+  if (file.type === 'image/jpeg') return bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff
+  if (file.type === 'image/png') return [137, 80, 78, 71, 13, 10, 26, 10].every((value, index) => bytes[index] === value)
+  if (file.type === 'image/webp') return String.fromCharCode(...bytes.slice(0, 4)) === 'RIFF' && String.fromCharCode(...bytes.slice(8, 12)) === 'WEBP'
+  return false
+}
+
 export type ProductInput = z.infer<typeof productSchema>
