@@ -26,8 +26,6 @@ export default function Home() {
         {hasProducts && <p>{products.length} modelos</p>}
       </div>
 
-      {hasProducts && <p className="catalogue-notice">Proyecto académico: imágenes, descripciones y precios de ejemplo.</p>}
-
       {hasProducts ? <div className="product-grid">
         {products.map(product => <article className="product" key={product.id}>
           <Link className="product-photo" href={`/producto/${product.id}`} aria-label={`Ver ${product.name}`}>
@@ -62,7 +60,6 @@ export default function Home() {
 
     <footer className="site-footer shell">
       <span>Catálogo de calzado</span>
-      <span>Demo académica · Perú · WhatsApp</span>
     </footer>
   </main>
 }
